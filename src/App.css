@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.form-control {
+  border: 1px solid #acacac;
+  padding: 10px;
+  font-size: 14px;
+  outline: none !important;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.form-control:focus-within, .form-control:focus {
+  border: 1px solid indigo;
+}
+
+.bg-gradient {
+  background: linear-gradient(to right, #4951a5, #0d1667);
+}
+
+.form-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 1rem;
+}
