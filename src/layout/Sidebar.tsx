@@ -48,13 +48,23 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/category'}>
+                                    <Link className='block w-full px-3 py-2' to={'/modal-create'}>
                                         <AppstoreAddOutlined /> Modal
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/category'}>
+                                    <Link className='block w-full px-3 py-2' to={'/add-product'}>
+                                        <AppstoreAddOutlined /> Product
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className='block w-full px-3 py-2' to={'/variant-by'}>
                                         <AppstoreAddOutlined /> Variation By
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className='block w-full px-3 py-2' to={'/variant'}>
+                                        <AppstoreAddOutlined /> Variation
                                     </Link>
                                 </li>
                             </ul>

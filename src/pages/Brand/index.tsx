@@ -1,7 +1,6 @@
 import { SaveOutlined } from '@ant-design/icons'
 import React from 'react'
 import { getData } from '../../utils';
-
 const Brand: React.FC = () => {
     interface Category {
         _id: string,
@@ -49,7 +48,7 @@ const Brand: React.FC = () => {
                     <div className="grid grid-cols-4 gap-5">
                         <div className="col-span-1">
                             <label htmlFor="">Select Category</label>
-                            <select name="" id="" className="form-select">
+                            <select name="" id="" className="form-select form-control">
                                 <option value="">--Select---</option>
                                 {
                                     categories.map((cat) => (
