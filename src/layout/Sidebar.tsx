@@ -1,4 +1,4 @@
-import { AppstoreAddOutlined, DatabaseOutlined, HomeOutlined, MenuOutlined } from '@ant-design/icons'
+import { DatabaseOutlined, HomeOutlined, MenuOutlined, ProductOutlined } from '@ant-design/icons'
 import { Collapse } from '@material-tailwind/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -36,37 +36,53 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
                             <DatabaseOutlined /> Master Data
                         </button>
                         <Collapse open={open == 'masterdata'}>
-                            <ul className='ps-5 *:text-xs  list-none list-inside'>
+                            <ul className='ps-5 *:text-xs  list-none list-inside dropdown_ul'>
                                 <li>
                                     <Link className='block w-full px-3 py-2' to={'/category'}>
-                                        <AppstoreAddOutlined /> Category
+                                        Category
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/category'}>
-                                        <AppstoreAddOutlined /> Brand
+                                    <Link className='block w-full px-3 py-2' to={'/brand'}>
+                                        Brand
                                     </Link>
                                 </li>
                                 <li>
                                     <Link className='block w-full px-3 py-2' to={'/modal-create'}>
-                                        <AppstoreAddOutlined /> Modal
+                                        Modal
                                     </Link>
                                 </li>
                                 <li>
                                     <Link className='block w-full px-3 py-2' to={'/add-product'}>
-                                        <AppstoreAddOutlined /> Product
+                                        Product
                                     </Link>
                                 </li>
                                 <li>
                                     <Link className='block w-full px-3 py-2' to={'/variant-by'}>
-                                        <AppstoreAddOutlined /> Variation By
+                                        Variation By
                                     </Link>
                                 </li>
                                 <li>
                                     <Link className='block w-full px-3 py-2' to={'/variant'}>
-                                        <AppstoreAddOutlined /> Variation
+                                        Variation
                                     </Link>
                                 </li>
+                            </ul>
+                        </Collapse>
+                    </li>
+                    <li>
+                        <button onClick={() => handleopen('product')} className='py-2 block w-full   text-start px-4' type='button' title='master data'>
+                            <ProductOutlined /> Product Management
+                        </button>
+                        <Collapse open={open == 'product'}>
+                            <ul className='ps-5 *:text-xs  list-none list-inside dropdown_ul'>
+
+                                <li>
+                                    <Link className='block w-full px-3 py-2' to={'/add-product'}>
+                                        Product
+                                    </Link>
+                                </li>
+
                             </ul>
                         </Collapse>
                     </li>

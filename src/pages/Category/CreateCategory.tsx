@@ -36,7 +36,6 @@ const CreateCategory = () => {
 
         try {
             await formDataWithToken('category', formData).then(resp => {
-                //@ts-expect-error
                 setMsg(resp.message);
                 getdata();
                 setTitle('');

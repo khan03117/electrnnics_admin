@@ -30,3 +30,25 @@
   display: block;
   margin-bottom: 1rem;
 }
+
+.dropdown_ul li a {
+  position: relative;
+  padding-left: 20px;
+}
+
+.dropdown_ul li a::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+
+.modalcheckbox label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #0d1667;
+}

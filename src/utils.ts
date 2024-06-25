@@ -1,5 +1,8 @@
 export const base_url = "http://localhost:5000/";
-
+interface ApiResponse {
+    message: string;
+    success: string;
+}
 export const getData = async (endpoint: string) => {
     try {
         const response = await fetch(base_url + 'api/v1/' + endpoint);
@@ -31,7 +34,7 @@ export const postDataWithToken = async <T, R>(
 export const formDataWithToken = async (
     endpoint: string,
     formData: FormData
-): Promise<unknown> => {
+): Promise<ApiResponse> => {
     const response = await fetch(`${base_url}api/v1/${endpoint}`, {
         method: 'POST',
         body: formData
