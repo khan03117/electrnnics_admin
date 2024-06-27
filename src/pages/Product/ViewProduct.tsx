@@ -1,4 +1,4 @@
-import { EyeOutlined, LeftOutlined, PlusOutlined } from '@ant-design/icons'
+import { LeftOutlined, PlusOutlined } from '@ant-design/icons'
 import React from 'react'
 import { Link } from 'react-router-dom'
 

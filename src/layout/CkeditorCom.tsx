@@ -13,6 +13,7 @@ const CkeditorCom: React.FC<CKEditorComponentProps> = ({ value, onChange }) => {
                 editor={ClassicEditor}
                 data={value}
                 onChange={(event, editor) => {
+                    console.log(event)
                     const data = editor.getData();
                     onChange(data);
                 }}
