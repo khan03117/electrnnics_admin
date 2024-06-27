@@ -1,4 +1,5 @@
-export const base_url = "https://electronics-backend-jhe8.onrender.com/";
+// export const base_url = "https://electronics-backend-jhe8.onrender.com/";
+export const base_url = "http://localhost:5000/";
 interface ApiResponse {
     message: string;
     success: string;
@@ -47,3 +48,11 @@ export const formDataWithToken = async (
     const responseData = await response.json();
     return responseData;
 };
+export const delete_data = async (endpoint: string) => {
+    const response = await fetch(`${base_url}api/v1/${endpoint}`, {
+        method: 'DELETE'
+    });
+    const responseData = await response.json();
+    return responseData;
+
+}

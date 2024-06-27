@@ -8,6 +8,8 @@ import ModalCreate from './pages/Modal/ModalCreate'
 import ModalView from './pages/Modal/ModalView'
 import ProductCreate from './pages/Product/ProductCreate'
 import Brand from './pages/Brand'
+import CreateBanner from './pages/banner/CreateBanner'
+import CreateTestimonial from './pages/testimonial/CreateTestimonial'
 
 
 
@@ -20,9 +22,11 @@ function App() {
           <Route path='/dashboard' element={<Home />} />
           <Route path='/category' element={<CreateCategory />} />
           <Route path='/brand' element={<Brand />} />
+          <Route path='/banner' element={<CreateBanner />} />
           <Route path='/modal-create' element={<ModalCreate />} />
           <Route path='/modal-view' element={<ModalView />} />
           <Route path='/add-product' element={<ProductCreate />} />
+          <Route path='/testimonial' element={<CreateTestimonial />} />
         </Route>
       </>
     )

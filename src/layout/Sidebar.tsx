@@ -1,4 +1,4 @@
-import { DatabaseOutlined, HomeOutlined, MenuOutlined, ProductOutlined } from '@ant-design/icons'
+import { HomeOutlined, MenuOutlined, ProductOutlined } from '@ant-design/icons'
 import { Collapse } from '@material-tailwind/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -18,67 +18,92 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
     }
     return (
         <>
-            <div className="w-full">
+            <div className="w-full rounded-e-3xl h-full overflow-hidden bg-blue-gray-50 text-blue-900 ">
                 <div className="w-full text-end">
                     <button type='button' title=' toggle button ' onClick={toggleSidebar} className="p-2">
                         <MenuOutlined />
                     </button>
                 </div>
 
-                <ul className='masterdata_ul *:py-2 px-3 *:text-sm *:font-light *:tracking-wider'>
+                <ul className='masterdata_ul *:py-1 px-3 *:text-sm *:font-light *:tracking-wider'>
                     <li>
-                        <Link to={'/dashboard'} className='w-full bg-indigo-200 py-2 px-4 block bg-opacity-30 rounded-lg'>
+                        <Link to={'/dashboard'} className='w-full  py-1 px-4 block bg-opacity-30 rounded-lg'>
                             <HomeOutlined /> Dashboard
                         </Link>
                     </li>
                     <li>
-                        <button onClick={() => handleopen('masterdata')} className='py-2 block w-full   text-start px-4' type='button' title='master data'>
+                        <Link to={'/category'} className='w-full  py-1 px-4 block bg-opacity-30 rounded-lg'>
+                            <HomeOutlined /> Category
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={'/brand'} className='w-full  py-1 px-4 block bg-opacity-30 rounded-lg'>
+                            <HomeOutlined /> Brand
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={'/modal-create'} className='w-full  py-1 px-4 block bg-opacity-30 rounded-lg'>
+                            <HomeOutlined /> Modal
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={'/banner'} className='w-full  py-1 px-4 block bg-opacity-30 rounded-lg'>
+                            <HomeOutlined /> Banner
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={'/testimonial'} className='w-full  py-1 px-4 block bg-opacity-30 rounded-lg'>
+                            <HomeOutlined /> Testimonial
+                        </Link>
+                    </li>
+                    {/* <li>
+                        <button onClick={() => handleopen('masterdata')} className='py-1 block w-full   text-start px-4' type='button' title='master data'>
                             <DatabaseOutlined /> Master Data
                         </button>
                         <Collapse open={open == 'masterdata'}>
                             <ul className='ps-5 *:text-xs  list-none list-inside dropdown_ul'>
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/category'}>
+                                    <Link className='block w-full px-3 py-1' to={'/category'}>
                                         Category
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/brand'}>
+                                    <Link className='block w-full px-3 py-1' to={'/brand'}>
                                         Brand
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/modal-create'}>
+                                    <Link className='block w-full px-3 py-1' to={'/modal-create'}>
                                         Modal
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/add-product'}>
+                                    <Link className='block w-full px-3 py-1' to={'/add-product'}>
                                         Product
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/variant-by'}>
+                                    <Link className='block w-full px-3 py-1' to={'/variant-by'}>
                                         Variation By
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/variant'}>
+                                    <Link className='block w-full px-3 py-1' to={'/variant'}>
                                         Variation
                                     </Link>
                                 </li>
                             </ul>
                         </Collapse>
-                    </li>
+                    </li> */}
                     <li>
-                        <button onClick={() => handleopen('product')} className='py-2 block w-full   text-start px-4' type='button' title='master data'>
+                        <button onClick={() => handleopen('product')} className='py-1 block w-full   text-start px-4' type='button' title='master data'>
                             <ProductOutlined /> Product Management
                         </button>
                         <Collapse open={open == 'product'}>
                             <ul className='ps-5 *:text-xs  list-none list-inside dropdown_ul'>
 
                                 <li>
-                                    <Link className='block w-full px-3 py-2' to={'/add-product'}>
+                                    <Link className='block w-full px-3 py-1' to={'/add-product'}>
                                         Product
                                     </Link>
                                 </li>

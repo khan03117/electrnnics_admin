@@ -14,8 +14,8 @@ const Layout: React.FC = () => {
     return (
         <>
 
-            <div className="flex w-full ">
-                <div className={`fixed start-0 top-0 h-screen bg-gradient text-white transition-all duration-300 ${collapsed ? 'w-[10rem]' : 'w-[14rem]'}`}>
+            <div className="flex w-full bg-white">
+                <div className={`fixed start-0 top-0 h-screen bg-transparent transition-all duration-300 ${collapsed ? 'w-[10rem]' : 'w-[14rem]'}`}>
                     <Sidebar toggleSidebar={toggleSidebar} />
                 </div>
                 <div className={`w-[calc(100%-10rem)] ms-[14rem] relative`}>
