@@ -1,6 +1,6 @@
 import { EyeOutlined, PlusCircleOutlined, SaveOutlined } from '@ant-design/icons';
 
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
 import CkeditorCom from '../../layout/CkeditorCom';
 import { formDataWithToken, getData } from '../../utils';
@@ -126,7 +126,7 @@ const ProductCreate: React.FC = () => {
         console.log(selectedmodal)
     }, [selectedmodal])
 
-
+    const scrollToRef = useRef<HTMLDivElement>(null);
 
 
     const postdata = async () => {
@@ -143,13 +143,23 @@ const ProductCreate: React.FC = () => {
         formData.append('product_type', 'wholesell');
         formData.append('category', category_id);
         await formDataWithToken('product', formData).then((resp) => {
+            setTimeout(() => {
+                if (scrollToRef.current) {
+                    scrollToRef.current.scrollIntoView({ block: 'start' });
+                }
+            }, 0);
             setMsg(resp.message);
             setStatus(resp.success);
             setTimeout(() => {
                 setMsg('');
                 setStatus('');
             }, 1000)
-        })
+        });
+        setTimeout(() => {
+            if (scrollToRef.current) {
+                scrollToRef.current.scrollIntoView({ block: 'start' });
+            }
+        }, 0);
     }
 
     return (
@@ -157,11 +167,11 @@ const ProductCreate: React.FC = () => {
 
             <section>
                 <div className="container">
-                    <div className="flex gap-3 justify-end mb-4">
+                    <div ref={scrollToRef} className="flex gap-3 justify-end mb-4">
                         <Link to={'/view-product'} className="text-sm bg-gradient px-4 uppercase font-light tracking-widest py-2 rounded-lg shadow-lg shadow-indigo-600 text-white"><EyeOutlined /> View Product</Link>
 
                     </div>
-                    <div className="grid grid-cols-4 gap-5">
+                    <div className="grid grid-cols-4 gap-5" >
                         {
                             msg && (
                                 <>

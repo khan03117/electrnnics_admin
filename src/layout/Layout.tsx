@@ -5,27 +5,33 @@ import Footer from './Footer'
 import { Outlet } from 'react-router-dom'
 
 const Layout: React.FC = () => {
-    const [collapsed, setCollapsed] = React.useState(false);
 
-    const toggleSidebar = () => {
-        setCollapsed(!collapsed);
-    };
+
+
 
     return (
         <>
 
-            <div className="flex w-full bg-white">
-                <div className={`fixed start-0 top-0 h-screen bg-transparent transition-all duration-300 ${collapsed ? 'w-[10rem]' : 'w-[14rem]'}`}>
-                    <Sidebar toggleSidebar={toggleSidebar} />
+            <div className={`w-full h-lvh overflow-hidden`}>
+                <Header />
+                <div className="grid grid-cols-12">
+                    <div className="col-span-2 backdrop-blur-sm ">
+                        <div className={`fixed start-0 top-0 max-h-[100vh] overflow-y-auto py-3 overflow-x-hidden bg-transparent transition-all duration-300 w-full`}>
+                            <Sidebar />
+                        </div>
+                    </div>
+                    <div className="col-span-10">
+                        <main className='p-5 pb-28 max-h-lvh overflow-auto overflow-x-hidden'>
+                            <Outlet />
+                        </main>
+                    </div>
                 </div>
-                <div className={`w-[calc(100%-10rem)] ms-[14rem] relative`}>
-                    <Header />
-                    <main className='p-5'>
-                        <Outlet />
-                    </main>
-                    <Footer />
-                </div>
+
+                <Footer />
             </div>
+
+
+
         </>
     )
 }
