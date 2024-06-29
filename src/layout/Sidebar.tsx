@@ -16,10 +16,10 @@ const Sidebar = () => {
     // }
     return (
         <>
-            <div className="w-full rounded-e-3xl h-full relative bg-white border border-blue-gray-300 text-blue-900 ">
+            <div className="w-full rounded-e-3xl h-[100%] overflow-x-hidden overflow-y-auto relative bg-white border border-blue-gray-300 text-blue-900 ">
 
 
-                <ul className='masterdata_ul mb-20 *:py-1 px-3 *:text-sm *:font-light *:tracking-wider'>
+                <ul className='masterdata_ul mb-20  *:py-1 px-3 *:text-sm *:font-light *:tracking-wider'>
                     <li>
                         <Link to={'/dashboard'} className='w-full  py-2 ps-3 text-start block rounded-lg bg-indigo-700 text-white'>
                             <WindowsOutlined /> <span className="ms-5 font-bold">
@@ -72,64 +72,8 @@ const Sidebar = () => {
                         </Link>
                     </li>
 
-                    {/* <li>
-                        <button onClick={() => handleopen('masterdata')} className='py-2 block w-full   text-start px-4' type='button' title='master data'>
-                            <DatabaseOutlined /> Master Data
-                        </button>
-                        <Collapse open={open == 'masterdata'}>
-                            <ul className='ps-5 *:text-xs  list-none list-inside dropdown_ul'>
-                                <li>
-                                    <Link className='block w-full px-3 py-1' to={'/category'}>
-                                        Category
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className='block w-full px-3 py-1' to={'/brand'}>
-                                        Brand
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className='block w-full px-3 py-1' to={'/modal-create'}>
-                                        Modal
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className='block w-full px-3 py-1' to={'/add-product'}>
-                                        Product
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className='block w-full px-3 py-1' to={'/variant-by'}>
-                                        Variation By
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className='block w-full px-3 py-1' to={'/variant'}>
-                                        Variation
-                                    </Link>
-                                </li>
-                            </ul>
-                        </Collapse>
-                    </li> */}
-                    {/* <li>
-                        <button onClick={() => handleopen('product')} className='py-2 block w-full   text-start px-4' type='button' title='master data'>
-                            <ProductOutlined />  <span className="ms-5">Product Management </span>
-                        </button>
-                        <Collapse open={open == 'product'}>
-                            <ul className='ps-5 *:text-xs  list-none list-inside dropdown_ul'>
-
-                                <li>
-                                    <Link className='block w-full px-3 py-2' to={'/add-product'}>
-                                        Product
-                                    </Link>
-                                </li>
-
-                            </ul>
-                        </Collapse>
-                    </li> */}
-
                 </ul>
-                <div className="w-full absolute bottom-0 start-0 pt-3 border-t border-blue-gray-500">
+                <div className="w-full bg-white h-auto inline-block z-50 absolute bottom-0 start-0 pt-3 border-t border-blue-gray-500">
                     <Link to={'/category'} className='w-full ms-3  py-2 px-4 block bg-opacity-30 rounded-lg'>
                         <LogoutOutlined />  <span className="ms-5">Logout </span>
                     </Link>

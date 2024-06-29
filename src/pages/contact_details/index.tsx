@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getData, postDataWithToken } from '../../utils'
 import { Dialog, DialogBody, DialogHeader, Input } from '@material-tailwind/react';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 
 const ContactDetails = () => {
     interface Media {
@@ -14,7 +14,8 @@ const ContactDetails = () => {
     const [open, setOpen] = useState<boolean>(false);
     const [ntitle, setNtitle] = useState<string>('')
     const [nval, setNval] = useState<string>('')
-    const [type, setType] = useState<string>('')
+    const [type, setType] = useState<string>('');
+    const [mid, setMid] = useState<string>('')
     const getdata = async () => {
         const resp = await getData('social/contact-media');
         setData(resp.data);
@@ -40,18 +41,38 @@ const ContactDetails = () => {
         setNval('');
         setNtitle('')
     }
+
     const updatedata = async (id: string) => {
+        const foundData = data.find(obj => obj._id === id);
+        if (foundData) {
+            setNtitle(foundData.title);
+            setNval(foundData.media_value);
+            setType(foundData.type)
+            setMid(id);
+            setOpen(true)
+        } else {
+            // Handle the case when the object is not found
+            console.error(`No data found with id: ${id}`);
+        }
+    }
+    const update_data = async () => {
         const udata = {
-            media_id: id,
-            title: ntitle.length > 0 ? ntitle : data.find(obj => obj._id == id)?.title,
+            media_id: mid,
+            title: ntitle,
             type: type,
-            media_value: nval.length > 0 ? nval : data.find(obj => obj._id == id)?.media_value,
+            media_value: nval,
         }
         await postDataWithToken('social/contact-media', { ...udata });
         setOpen(false);
+        setMid('');
+        setNtitle('');
+        setNval('');
         getdata();
     }
     const addnewsocial = () => {
+        setMid('');
+        setNtitle('');
+        setNval('');
         setOpen(!open);
     }
     useEffect(() => {
@@ -72,8 +93,8 @@ const ContactDetails = () => {
                                     <div className="form-group mb-3">
                                         <select onChange={handletype} className='w-full p-2 text-sm border border-blue-gray-200 outline-none rounded-sm' >
                                             <option value="">Select type</option>
-                                            <option value="Social">Social</option>
-                                            <option value="Contact">Contact</option>
+                                            <option value="Social" selected={type == "Social"}>Social</option>
+                                            <option value="Contact" selected={type == "Contact"}>Contact</option>
                                         </select>
                                     </div>
                                     <div className="form-group mb-3">
@@ -83,7 +104,7 @@ const ContactDetails = () => {
                                         <Input onChange={handlevalue} value={nval} className='w-full' label='Enter Social URL' onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} />
                                     </div>
                                     <div className="form-group mb-3">
-                                        <button onClick={savedata} className="w-full bg-indigo-900 text-white rounded-md p-3">Submit</button>
+                                        <button onClick={mid ? update_data : savedata} className="w-full bg-indigo-900 text-white rounded-md p-3">Submit</button>
                                     </div>
                                 </div>
                             </DialogBody>
@@ -96,11 +117,11 @@ const ContactDetails = () => {
                 <div className="container mx-auto">
                     <div className="grid grid-cols-3">
 
-                        <div className="col-span-2">
+                        <div className="col-span-3">
                             <div className="w-full">
                                 <table className="w-full">
                                     <thead>
-                                        <tr className='*:border *:text-sm *:p-2 *:text-start'>
+                                        <tr className='*:border *:border-blue-gray-200 *:text-sm *:p-2 *:text-start'>
                                             <th>Sr No</th>
                                             <th>Type</th>
                                             <th>Title</th>
@@ -110,38 +131,32 @@ const ContactDetails = () => {
                                     </thead>
                                     <tbody>
                                         {data.map((item, index) => (
-                                            <tr key={index} className='*:border *:text-sm *:p-2 *:text-start'>
+                                            <tr key={index} className='*:border *:border-blue-gray-200 *:text-sm *:p-2 *:text-start'>
                                                 <td>{index + 1}</td>
                                                 <td>
                                                     {item.type}
-                                                    <select onChange={handletype} className='w-full p-2 text-sm border border-blue-gray-200 outline-none rounded-sm' >
-                                                        <option value="">Select type</option>
-                                                        <option value="Social" >Social</option>
-                                                        <option value="Contact">Contact</option>
-                                                    </select>
                                                 </td>
                                                 <td>
                                                     {item.title}
-                                                    <input type="text" onChange={handletitle} value={ntitle} className="w-full p-2 outline-none border border-blue-gray-200" />
                                                 </td>
                                                 <td>
                                                     {item.media_value}
-                                                    <input type="text" onChange={handlevalue} value={nval} className="w-full p-2 outline-none border border-blue-gray-200" />
+
                                                 </td>
                                                 <td>
                                                     <div className="inline-flex gap-2">
-                                                        <button onClick={() => updatedata(item._id)} className="bg-indigo-800 px-2 py-2 rounded-sm text-white">
+                                                        <button type='button' title='button' onClick={() => updatedata(item._id)} className="bg-indigo-800 px-2 py-2 rounded-sm text-white">
                                                             <EditOutlined />
                                                         </button>
-                                                        <button onClick={() => updatedata(item._id)} className="bg-orange-800 px-2 py-2 rounded-sm text-white">
+                                                        {/* <button type='button' title='button' onClick={() => updatedata(item._id)} className="bg-orange-800 px-2 py-2 rounded-sm text-white">
                                                             <DeleteOutlined />
-                                                        </button>
+                                                        </button> */}
                                                     </div>
 
                                                 </td>
                                             </tr>
                                         ))}
-                                        <tr className='*:border *:text-sm *:p-2 *:text-start'>
+                                        <tr className='*:border *:border-blue-gray-200 *:text-sm *:p-2 *:text-start'>
                                             <td colSpan={4}>
 
                                             </td>
