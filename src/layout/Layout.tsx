@@ -2,14 +2,26 @@ import React from 'react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import Footer from './Footer'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const Layout: React.FC = () => {
 
+    const token: string | null = localStorage.getItem('atoken');
+    const navigate = useNavigate();
 
+    React.useEffect(() => {
+        // Redirect to login if token is not present
+        if (!token) {
+            navigate('/login');
+        }
+    }, [token, navigate]);
 
+    // Render nothing if not authenticated
+    if (!token) {
+        return null;
+    }
 
     return (
         <>

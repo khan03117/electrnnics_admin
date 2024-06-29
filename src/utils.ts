@@ -1,5 +1,5 @@
-// export const base_url = "https://electronics-backend-jhe8.onrender.com/";
-export const base_url = "http://localhost:5000/";
+export const base_url = "https://punaah.in:5000/";
+// export const base_url = "https://localhost:5000/";
 interface ApiResponse {
     message: string;
     success: string;
@@ -13,6 +13,25 @@ export const getData = async (endpoint: string) => {
         console.log(error);
     }
 }
+export const postData = async <T, R>(
+    endpoint: string,
+    data: T
+): Promise<R> => {
+    const response = await fetch(`${base_url}api/v1/${endpoint}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.statusText}`);
+    }
+
+    const responseData: R = await response.json();
+    return responseData;
+};
 export const postDataWithToken = async <T, R>(
     endpoint: string,
     data: T

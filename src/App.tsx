@@ -12,6 +12,8 @@ import CreateBanner from './pages/banner/CreateBanner'
 import CreateTestimonial from './pages/testimonial/CreateTestimonial'
 import ContactDetails from './pages/contact_details'
 import CreatePolicy from './pages/policy/CreatePolicy'
+import Login from './pages/Login'
+import ViewProduct from './pages/Product/ViewProduct'
 
 
 
@@ -19,6 +21,10 @@ function App() {
   const ThemeRoutes = createBrowserRouter(
     createRoutesFromElements(
       <>
+        {/* Public route */}
+        <Route path='/login' element={<Login />} />
+
+        {/* Protected routes with Layout */}
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
           <Route path='/dashboard' element={<Home />} />
@@ -28,6 +34,7 @@ function App() {
           <Route path='/modal-create' element={<ModalCreate />} />
           <Route path='/modal-view' element={<ModalView />} />
           <Route path='/add-product' element={<ProductCreate />} />
+          <Route path='/view-product' element={<ViewProduct />} />
           <Route path='/testimonial' element={<CreateTestimonial />} />
           <Route path='/contact-details' element={<ContactDetails />} />
           <Route path='/policy' element={<CreatePolicy />} />
