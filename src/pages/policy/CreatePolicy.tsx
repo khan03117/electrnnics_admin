@@ -1,17 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CkeditorCom from '../../layout/CkeditorCom'
-import { postDataWithToken } from '../../utils';
+import { getData, postDataWithToken } from '../../utils';
 
 const CreatePolicy = () => {
+    const goref = useRef<HTMLDivElement>(null)
     interface ApiResponse {
         success: string;
         message: string;
+    }
+    interface Policy {
+        title: string;
+        _id: string;
+        description: string;
+        url: string;
     }
     const [editorData, setEditorData] = React.useState<string>('');
     const [title, setTitle] = useState<string>('');
     const [pid, setPid] = useState<string>('');
     const [status, setStatus] = useState<string>('');
     const [msg, setMsg] = useState<string>('');
+    const [policies, setPolicies] = useState<Policy[]>([])
     const handleEditorChange = (data: string) => {
         setEditorData(data);
     };
@@ -19,6 +27,15 @@ const CreatePolicy = () => {
         const val = e.target.value;
         if (val != "new") {
             setPid(e.target.value)
+            const finddata = policies.find(obj => obj._id == val);
+            if (finddata) {
+                setTitle(finddata.title || ""); // Ensure title is a string
+                setEditorData(finddata.description || "");
+            } else {
+                // Handle case where finddata is not found
+                setTitle("");
+                setEditorData("");
+            }
         }
         if (val == "new") {
             setTitle('');
@@ -36,21 +53,31 @@ const CreatePolicy = () => {
             description: editorData
         }
         const resp: ApiResponse = await postDataWithToken('policy', data);
-        if (resp.success == "1") {
-            setMsg(resp.message);
-            setStatus(resp.success)
-        }
-
+        setTimeout(() => {
+            if (goref.current) {
+                goref.current.scrollIntoView({ block: 'start' });
+            }
+        }, 0);
+        setMsg(resp.message);
+        setStatus(resp.success);
+        getdata()
     }
+    const getdata = async () => {
+        const resp = await getData('policy');
+        setPolicies(resp.data);
+    }
+    useEffect(() => {
+        getdata();
+    }, [])
     return (
         <>
             <section className="py-10">
-                <div className="container">
-                    <div className="grid grid-cols-3 gap-4">
+                <div className="container" ref={goref}>
+                    <div className="grid grid-cols-3 py-10 gap-4">
                         {
                             msg && (
                                 <>
-                                    <div className={`col-span-3 rounded-md ${status == "1" ? 'bg-green-700' : 'bg-red-700'}`}>
+                                    <div className={`col-span-3 mt-10 rounded-md ${status == "1" ? 'bg-green-700' : 'bg-red-700'}`}>
                                         <div className="w-full rounded-md p-4 text-white">
                                             {msg}
                                         </div>
@@ -62,6 +89,13 @@ const CreatePolicy = () => {
                             <label htmlFor="">Select Policy</label>
                             <select onChange={handlepid} className="w-full p-2 text-sm rounded-md border border-blue-gray-200">
                                 <option value="">---Select---</option>
+                                {
+                                    policies.map(pl => (
+                                        <>
+                                            <option value={pl._id}>{pl.title}</option>
+                                        </>
+                                    ))
+                                }
                                 <option value="new">Create New</option>
                             </select>
                         </div>
