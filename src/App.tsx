@@ -11,6 +11,7 @@ import Brand from './pages/Brand'
 import CreateBanner from './pages/banner/CreateBanner'
 import CreateTestimonial from './pages/testimonial/CreateTestimonial'
 import ContactDetails from './pages/contact_details'
+import CreatePolicy from './pages/policy/CreatePolicy'
 
 
 
@@ -28,7 +29,8 @@ function App() {
           <Route path='/modal-view' element={<ModalView />} />
           <Route path='/add-product' element={<ProductCreate />} />
           <Route path='/testimonial' element={<CreateTestimonial />} />
-          <Route path='/contact-details' element={<ContactDetails/>} />
+          <Route path='/contact-details' element={<ContactDetails />} />
+          <Route path='/policy' element={<CreatePolicy />} />
         </Route>
       </>
     )
