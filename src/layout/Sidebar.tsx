@@ -1,4 +1,4 @@
-import { BranchesOutlined, CodeSandboxOutlined, FileImageOutlined, LogoutOutlined, MessageOutlined, OrderedListOutlined, ProductOutlined, WindowsOutlined } from '@ant-design/icons'
+import { BranchesOutlined, CodeSandboxOutlined, ContactsOutlined, FileImageOutlined, LogoutOutlined, MessageOutlined, OrderedListOutlined, ProductOutlined, WindowsOutlined } from '@ant-design/icons'
 // import { Collapse } from '@material-tailwind/react'
 // import React from 'react'
 import { Link } from 'react-router-dom'
@@ -56,6 +56,11 @@ const Sidebar = () => {
                     <li>
                         <Link to={'/testimonial'} className='w-full  py-2 px-4 block bg-opacity-30 rounded-lg'>
                             <MessageOutlined />   <span className="ms-5">Testimonial </span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={'/contact-details'} className='w-full  py-2 px-4 block bg-opacity-30 rounded-lg'>
+                            <ContactsOutlined />   <span className="ms-5">Social Contact </span>
                         </Link>
                     </li>
                     <li className='my-4 py-4'>
