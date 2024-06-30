@@ -1,7 +1,7 @@
 import { CloseOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons'
 import React, { useState } from 'react'
-import { base_url, formDataWithToken, getData } from '../../utils';
-import { Dialog, DialogBody } from '@material-tailwind/react';
+import { base_url, formDataWithToken, formDataWithTokenUpdate, getData } from '../../utils';
+import { Dialog, DialogBody, DialogHeader } from '@material-tailwind/react';
 
 
 const Brand: React.FC = () => {
@@ -29,6 +29,8 @@ const Brand: React.FC = () => {
     const [categories, setCategories] = React.useState<Category[]>([]);
     const [brands, setBrand] = useState<Brand[]>([]);
     const [open, setOpen] = useState<boolean>(false);
+    const [edit, setEdit] = useState<boolean>(false);
+    const [editId, setEditId] = useState<string>('');
     const [brand_id, setBrandId] = useState<string>('');
     const deleteBrand = async (id: string) => {
         setBrandId(id);
@@ -110,9 +112,63 @@ const Brand: React.FC = () => {
     const handleOpen = () => {
         setOpen(!open)
     }
+    const edithandle = () => {
+        setEdit(!edit)
+    }
+    const editbrand = (id: string) => {
+        setEditId(id);
+        setEdit(true);
+        const finddata = brands.find(obj => obj._id == id);
+        if (finddata) {
+            setTitle(finddata?.title)
+        }
+    }
+    const editdata = async () => {
+        try {
+            const formData = new FormData();
+            formData.append('title', title);
+            await formDataWithTokenUpdate('brand/' + editId, formData).then((resp) => {
+                if (resp) {
+                    setEdit(!edit)
+                    setTitle('')
+                    setMsg(resp?.message);
+                    getbrands();
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
 
         <>
+            {
+                edit && (
+                    <>
+                        <Dialog open={edit} handler={edithandle} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} >
+                            <DialogHeader placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                                <h4>Edit Brand</h4>
+                            </DialogHeader>
+                            <DialogBody placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                                <div className="w-full">
+                                    <div className="form-group mb-4">
+                                        <label htmlFor="">Enter Brand</label>
+                                        <input title='Brand' type="text" onChange={handletitle} value={title} className="form-control" />
+                                    </div>
+                                    <div className="form-group mb-4">
+                                        <label htmlFor="">Upload Image</label>
+                                        <input title='Brand' type="file" onChange={handleimage} className="form-control" />
+                                    </div>
+                                    <div className="form-group mb-4">
+                                        <label htmlFor="" className='block mb-2'>&nbsp;</label>
+                                        <button type='button' onClick={editdata} title='button' className="text-sm bg-gradient px-4 uppercase font-light tracking-widest py-2 rounded-lg shadow-lg shadow-indigo-600 text-white"><SaveOutlined /> Save Brand</button>
+                                    </div>
+                                </div>
+                            </DialogBody>
+                        </Dialog>
+                    </>
+                )
+            }
             {
                 open && (
                     <>
@@ -149,19 +205,7 @@ const Brand: React.FC = () => {
                             )
                         }
 
-                        {/* <div className="col-span-1">
-                            <label htmlFor="">Select Category</label>
-                            <select name="" id="" className="form-select form-control">
-                                <option value="">--Select---</option>
-                                {
-                                    categories.map((cat) => (
-                                        <>
-                                            <option value={cat._id} key={cat._id}>{cat.title}</option>
-                                        </>
-                                    ))
-                                }
-                            </select>
-                        </div> */}
+
                         <div className="col-span-1">
                             <label htmlFor="">Enter Brand</label>
                             <input title='Brand' type="text" onChange={handletitle} value={title} className="form-control" />
@@ -184,7 +228,7 @@ const Brand: React.FC = () => {
                                             <button onClick={() => deleteBrand(brand._id)} className='text-amber-700 absolute -top-3 size-6 border border-amber-600 rounded-full    bg-white -end-2' title='delete button'>
                                                 <CloseOutlined />
                                             </button>
-                                            <button className='text-indigo-700 absolute -top-3 end-5 size-6 border border-indigo-600 rounded-full    bg-white ' title='delete button'>
+                                            <button onClick={() => editbrand(brand._id)} className='text-indigo-700 absolute -top-3 end-5 size-6 border border-indigo-600 rounded-full    bg-white ' title='delete button'>
                                                 <EditOutlined />
                                             </button>
 

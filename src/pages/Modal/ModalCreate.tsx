@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { DeleteOutlined, EditOutlined, SaveOutlined, SearchOutlined } from '@ant-design/icons'
-import { base_url, getData, postDataWithToken } from '../../utils';
+import { base_url, getData, postDataWithToken, updateDataWithToken } from '../../utils';
 import Swal from 'sweetalert2';
 
 const ModalCreate: React.FC = () => {
@@ -32,6 +32,8 @@ const ModalCreate: React.FC = () => {
     const [status, setStatus] = useState<string>('');
     const [modals, setModels] = useState<Modal[]>([]);
     const [keyword, setKeyword] = useState<string>('');
+    const [edit, setEdit] = useState<boolean>(false);
+    const [editid, setEditid] = useState<string>('');
 
     const getbrands = async () => {
         await getData('brand').then(resp => {
@@ -53,6 +55,25 @@ const ModalCreate: React.FC = () => {
         getModals()
         getbrands();
     }, [keyword]);
+    const handleedit = (id: string) => {
+        if(editid == id){
+            setEditid('');
+            setEdit(false);
+           
+        }else{
+            const found = modals.find(obj => obj.modals.find(ob => ob._id == id));
+            if(found){
+                const modl = found.modals.find(obj => obj._id == id)
+                if(modl){
+                    setTitle(modl.title)
+                }
+                setEditid(id);
+                setEdit(true);
+            }
+           
+        }
+      
+    }
 
 
     // const handleimage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +105,21 @@ const ModalCreate: React.FC = () => {
                 getModals();
             }
         })
+    }
+    const updatemodal = async () => {
+        const data = {
+            title: title
+        }
+        const resp: ApiResponse =  await updateDataWithToken('modal/'+editid, data);
+        setMessage(resp.message);
+        setStatus(resp.success);
+        setEdit(false);
+        setEditid('')
+        getModals();
+        setTimeout(() => {
+            setMessage('');
+            setStatus('');
+        }, 1000);
     }
 
     const postdata = async () => {
@@ -167,9 +203,20 @@ const ModalCreate: React.FC = () => {
                                             <>
                                                 <div className="col-span-1 border-b border-blue-gray-300 last:border-none">
                                                     <div className="w-full group relative pt-5">
-                                                        {modl.title}
+                                                     <span className="text-sm">   {modl.title}</span>
+                                                        {
+                                                            (edit && editid == modl._id) && (
+                                                                <>
+                                                                    <div className="flex border w-full border-blue-gray-200">
+                                                                        <input type="text" onChange={handletitle} value={title} className="w-full focus-within:outline-none py-2 px-1 text-xs" />
+                                                                        <button type='button' onClick={updatemodal} className="bg-gradient text-white text-xs px-2 uppercase font-light tracking">Update</button>
+                                                                    </div>
+                                                                </>
+                                                            )
+                                                        }
+
                                                         <div className="absolute opacity-0 group-hover:opacity-100 top-0 end-0 inline-flex gap-1">
-                                                            <button title='edit button' className='text-indigo-900'>
+                                                            <button onClick={() => handleedit(modl._id)} title='edit button' className='text-indigo-900'>
                                                                 <EditOutlined />
                                                             </button>
                                                             <button title='delete button' onClick={() => handledeletemodal(modl._id)} className='text-amber-800'>

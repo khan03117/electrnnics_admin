@@ -150,7 +150,7 @@ const CreateTestimonial = () => {
                                                         <button onClick={() => deletebanner(test._id)} title='delete button' className="bg-amber-900 text-white size-10 rounded-md">
                                                             <DeleteOutlined />
                                                         </button>
-                                                        <button title='delete button' className="bg-blue-900 text-white size-10 rounded-md">
+                                                        <button title='delete button' className="bg-blue-900 hidden text-white size-10 rounded-md">
                                                             <EditOutlined />
                                                         </button>
                                                     </div>
