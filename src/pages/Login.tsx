@@ -2,6 +2,7 @@ import { Input } from '@material-tailwind/react'
 import React from 'react'
 import { postData } from '../utils';
 import { useNavigate } from 'react-router-dom';
+import loginimg from '../assets/login.jpg'
 interface Fdata {
     email: string;
     password: string;
@@ -43,37 +44,48 @@ const Login: React.FC = () => {
     }, [status, navigate]);
     return (
         <>
-            <section className="py-10">
-                <div className="container">
-                    <div className="w-full">
-                        <div className="w-[25rem] mx-auto">
+            <section className="">
+                <div className="w-full ">
+                    <div className="grid grid-cols-2">
+                        <div className="col-span-1">
+                        <img src={loginimg} alt="" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="col-span-1">
+                            <div className="w-full h-full">
+                                <div className=" h-screen flex items-center bg-white justify-center">
 
-                            <div className="w-full p-5">
-                                {
-                                    msg && (
-                                        <>
-                                            <div className={`w-full my-5 rounded-md ${status == "1" ? 'bg-green-700' : 'bg-red-700'}`}>
-                                                <div className="w-full rounded-md p-4 text-white">
-                                                    {msg}
-                                                </div>
-                                            </div>
-                                        </>
-                                    )
-                                }
-                                <div className="form-group mb-4">
-                                    <Input label='Enter Username' name='email' onChange={handleInputChange} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} />
+                                    <div className=" w-[24rem] p-5 shadow-lg shadow-blue-gray-200 rounded-md bg-white">
+                                        <div className="form-group mb-5">
+                                            <h4 className="text-2xl font-bold">Login</h4>
+                                        </div>
+                                        {
+                                            msg && (
+                                                <>
+                                                    <div className={`w-full my-5 rounded-md ${status == "1" ? 'bg-green-700' : 'bg-red-700'}`}>
+                                                        <div className="w-full rounded-md p-4 text-white">
+                                                            {msg}
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            )
+                                        }
+                                        <div className="form-group mb-5">
+                                            <Input label='Enter Username' name='email' onChange={handleInputChange} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} />
 
-                                </div>
-                                <div className="form-group mb-4">
-                                    <Input type='password' name='password' label='Enter Password' onChange={handleInputChange} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} />
+                                        </div>
+                                        <div className="form-group mb-5">
+                                            <Input type='password' name='password' label='Enter Password' onChange={handleInputChange} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} />
 
-                                </div>
-                                <div className="form-group w-full">
-                                    <button onClick={post_data} title="login" className="bg-indigo-800 text-white w-full py-2 rounded-md">Login</button>
+                                        </div>
+                                        <div className="form-group w-full">
+                                            <button onClick={post_data} title="login" className="bg-indigo-800 text-white w-full py-2 rounded-md">Login</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </section>
         </>

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { DeleteOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons'
 import React, { useEffect } from 'react'
-import { base_url, formDataWithToken, getData } from '../../utils';
-import { Switch } from '@material-tailwind/react';
+import { base_url, formDataWithToken, formDataWithTokenUpdate, getData } from '../../utils';
+import { Dialog, DialogBody, DialogHeader, Switch } from '@material-tailwind/react';
 
 const CreateCategory = () => {
     interface Category {
@@ -15,6 +15,8 @@ const CreateCategory = () => {
     const [title, setTitle] = React.useState<string>('');
     const [mesg, setMsg] = React.useState<string>();
     const [data, setData] = React.useState<Category[]>([]);
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [cid, setCid] = React.useState<string>('')
     const handleimage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             setImage(e.target.files[0]);
@@ -24,6 +26,27 @@ const CreateCategory = () => {
 
         setTitle(e.target.value);
 
+    }
+    const updatedata = async () => {
+        const formData = new FormData();
+        if (image) {
+            formData.append('image', image);
+        }
+        formData.append('title', title);
+        try {
+            await formDataWithTokenUpdate('category/' + cid, formData).then(resp => {
+                setMsg(resp.message);
+                getdata();
+                setTitle('');
+                setImage(null);
+                setCid('');
+                setOpen(false);
+            })
+
+        } catch (error) {
+            console.log(mesg)
+            console.error('Error:', error);
+        }
     }
     const postdata = async () => {
         const formData = new FormData();
@@ -63,9 +86,51 @@ const CreateCategory = () => {
     useEffect(() => {
         getdata();
     }, []);
+    const handleopen = () => {
+        setOpen(!open);
+    }
+    const set_title = () => {
+        const foundata = data.find(obj => obj._id == cid);
+        if (foundata) {
+            setTitle(foundata.title);
+        } else {
+            setTitle('')
+        }
+    }
+    const handleEdit = (id: string) => {
+        setCid(id);
+        setOpen(!open);
+    }
+    useEffect(() => {
+        set_title();
+    }, [cid])
 
     return (
         <>
+            {
+                open && (
+                    <>
+                        <Dialog open={open} handler={handleopen} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                            <DialogHeader placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                                <h4>Edit Category</h4>
+                            </DialogHeader>
+                            <DialogBody placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                                <div className="form-group mb-4">
+                                    <label htmlFor="" className='form-label'>Enter Category</label>
+                                    <input title='category' type="text" value={title} onChange={handletitle} className="form-control" />
+                                </div>
+                                <div className="form-group mb-4">
+                                    <label htmlFor="" className='form-label'> Upload Image</label>
+                                    <input title='image' type="file" onChange={handleimage} className="form-control" />
+                                </div>
+                                <div className="form-group">
+                                    <button onClick={updatedata} className="w-full bg-indigo-800 text-white py-2 shadow-md shadow-blue-gray-200">Update Category</button>
+                                </div>
+                            </DialogBody>
+                        </Dialog>
+                    </>
+                )
+            }
             <section>
                 <div className="container">
                     <div className="grid grid-cols-3 gap-4 *:required:form-control">
@@ -128,7 +193,7 @@ const CreateCategory = () => {
                                                         <button type='button' onClick={() => deletecategory(itm._id)} title='delet button' className="bg-red-500 text-xs uppercase tracking-widest text-white px-4 py-2 rounded-md">
                                                             <DeleteOutlined />
                                                         </button>
-                                                        <button type='button' title='Edit button' className="bg-indigo-500 text-xs uppercase tracking-widest text-white px-4 py-2 rounded-md">
+                                                        <button type='button' onClick={() => handleEdit(itm._id)} title='Edit button' className="bg-indigo-500 text-xs uppercase tracking-widest text-white px-4 py-2 rounded-md">
                                                             <EditOutlined />
                                                         </button>
                                                     </div>

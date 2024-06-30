@@ -1,5 +1,5 @@
-export const base_url = "https://punaah.in:5000/";
-// export const base_url = "https://localhost:5000/";
+// export const base_url = "https://punaah.in:5000/";
+export const base_url = "https://localhost:5000/";
 interface ApiResponse {
     message: string;
     success: string;
@@ -57,6 +57,22 @@ export const formDataWithToken = async (
 ): Promise<ApiResponse> => {
     const response = await fetch(`${base_url}api/v1/${endpoint}`, {
         method: 'POST',
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.statusText}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+};
+export const formDataWithTokenUpdate = async (
+    endpoint: string,
+    formData: FormData
+): Promise<ApiResponse> => {
+    const response = await fetch(`${base_url}api/v1/${endpoint}`, {
+        method: 'PUT',
         body: formData
     });
 
