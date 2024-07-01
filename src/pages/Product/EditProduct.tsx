@@ -141,7 +141,7 @@ const EditProduct = () => {
         formData.append('modals', JSON.stringify(selectedmodal));
         formData.append('price', amount)
         formData.append('description', editorData)
-        formData.append('product_type', 'wholesell');
+        // formData.append('product_type', 'wholesell');
         formData.append('category', category_id);
         await formDataWithTokenUpdate('product/'+product?._id, formData).then((resp) => {
             setTimeout(() => {
@@ -193,7 +193,6 @@ const EditProduct = () => {
                 <div className="container">
                     <div className="flex gap-3 justify-end mb-4">
                         <Link to={'/view-product'} className="text-sm bg-gradient px-4 uppercase font-light tracking-widest py-2 rounded-lg shadow-lg shadow-indigo-600 text-white"><EyeOutlined /> View Product</Link>
-
                     </div>
                     <div className="grid grid-cols-4 gap-5" >
                         {

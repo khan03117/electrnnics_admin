@@ -160,16 +160,17 @@ const ProductCreate: React.FC = () => {
         }
         formData.append('title', title);
         if (type == "single") {
-
             const obj = {
                 brand: brand_id,
                 modal: modalid,
                 moq: moq,
                 stock: qty
             }
-            setSelectedModal([obj]);
+            formData.append('modals', JSON.stringify([obj]));
+        }else{
+            formData.append('modals', JSON.stringify(selectedmodal));
         }
-        formData.append('modals', JSON.stringify(selectedmodal));
+       
         formData.append('price', amount)
         formData.append('description', editorData)
         formData.append('product_type', type);
