@@ -1,5 +1,5 @@
-// export const base_url = "https://punaah.in:5000/";
-export const base_url = "https://localhost:5000/";
+export const base_url = "https://punaah.in:5000/";
+// export const base_url = "https://localhost:5000/";
 interface ApiResponse {
     message: string;
     success: string;
