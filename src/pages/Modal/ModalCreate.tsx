@@ -168,7 +168,7 @@ const ModalCreate: React.FC = () => {
                         </select>
                     </div>
                     <div className="col-span-1">
-                        <label htmlFor="">Enter Brand</label>
+                        <label htmlFor="">Enter New Modal</label>
                         <input title='Brand' type="text" onChange={handletitle} name="" id="" className="form-control" />
                     </div>
 

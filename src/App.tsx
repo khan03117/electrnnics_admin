@@ -14,6 +14,7 @@ import ContactDetails from './pages/contact_details'
 import CreatePolicy from './pages/policy/CreatePolicy'
 import Login from './pages/Login'
 import ViewProduct from './pages/Product/ViewProduct'
+import EditProduct from './pages/Product/EditProduct'
 
 
 
@@ -38,6 +39,7 @@ function App() {
           <Route path='/testimonial' element={<CreateTestimonial />} />
           <Route path='/contact-details' element={<ContactDetails />} />
           <Route path='/policy' element={<CreatePolicy />} />
+          <Route path='/product/edit/:id' element={<EditProduct/>} />
         </Route>
       </>
     )

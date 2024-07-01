@@ -121,9 +121,9 @@ const ViewProduct: React.FC = () => {
                                                 </td>
                                                 <td>
                                                     <div className="flex gap-2">
-                                                        <button title='edit' className='bg-indigo-800 text-white p-3'>
+                                                        <Link to={'/product/edit/'+pdt._id} title='edit' className='bg-indigo-800 text-white p-3'>
                                                             <EditOutlined />
-                                                        </button>
+                                                        </Link>
                                                         <button onClick={() => deleteHandle(pdt._id)} title='delete+' className='bg-amber-800 text-white p-3'>
                                                             <DeleteOutlined />
                                                         </button>
